@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANGKRINGAN KENANGAN</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1><img src="logo.png" alt="Logo" class="logo-header"> Angkringan Kenangan </h1>
+        <p>Digital Payout A.K</p>
+  <div id="header-jam" class="jam-digital-header">00:00:00</div>
+    </he>
+
+    <div class="nav-halaman-container">
+        <div class="nav-halaman">
+            <button class="btn-nav active" id="nav-home" onclick="pindahHalaman('home')">🏠 Kasir / Home</button>
+            <button class="btn-nav" id="nav-history" onclick="pindahHalaman('history')">📊 Riwayat Transaksi</button>
+        </div>
+    </div>
+
+    <div id="halaman-home" class="konten-halaman active">
+        <div class="meja-top-section">
+            <div class="grid-meja" id="meja-container"></div>
+        </div>
+
+        <div class="container">
+            <div class="menu-section">
+                <h2>☕ Menu Minuman</h2>
+                <div class="grid-menu" id="menu-minuman-container" style="margin-bottom: 40px;"></div>
+
+                <h2>🍔 Menu Makanan</h2>
+                <div class="grid-menu" id="menu-makanan-container"></div>
+            </div>
+
+            <div class="order-section">
+                <h2>Daftar Pesanan</h2>
+                
+                <div style="background: #e3f2fd; padding: 10px 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #2196f3; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="color: #7f8c8d; font-weight: 600; font-size: 0.9rem;">Kasir Menginput:</span>
+                    <h3 id="label-meja-aktif" style="color: #1e88e5; margin: 0; font-weight: 700; font-size: 1.15rem;">Meja 1</h3>
+                </div>
+
+                <table class="tabel-pesanan">
+                    <thead>
+                        <tr>
+                            <th>Menu</th>
+                            <th>Qty</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list-pesanan"></tbody>
+                </table>
+
+                <div class="total-box">
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">Rp 0</span>
+                    </div>
+                    <div class="total-row grand-total">
+                        <span>Total Akhir:</span>
+                        <span id="total-akhir" data-value="0">Rp 0</span>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-riwayat" id="btn-cetak-bill">1. Cetak Bill (Simpan ke Meja)</button>
+                    <button class="btn-selesai" id="btn-buka-pembayaran">2. Proses Pembayaran (Bayar)</button>
+
+                    <div class="sponsor-wrapper">
+                        <div class="sponsor-title">SPONSOR & SOCIAL MEDIA</div>
+                        <div class="medsos-container">
+                            <div class="medsos-box">
+                                <span class="medsos-name">Instagram</span>
+                                <a href="https://www.instagram.com/satrio_qs?igsh=anpqbW9hdG9lMjJ6" target="_blank" class="btn-medsos btn-ig">follow Instagram</a>
+                            </div>
+                            <div class="medsos-box">
+                                <span class="medsos-name">TikTok</span>
+                                <a href="https://tiktok.com/@kesatria.rembulan" target="_blank" class="btn-medsos btn-tt">follow TikTok</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="halaman-history" class="konten-halaman">
+        <div class="history-section">
+            <div class="history-header">
+           <h2>📊 Riwayat Transaksi <span id="jam-realtime" style="color: #e67e22; font-family: monospace;">00:00:00</span></h2>
+                <small>Otomatis Reset Setiap Jam 06.00 Pagi</small>
+            </div>
+            <table class="tabel-history">
+                <thead>
+                    <tr>
+                        <th>Waktu</th>
+                        <th>Meja</th>
+                        <th>Metode</th>
+                        <th>Total Pendapatan</th>
+                    </tr>
+                </thead>
+                <tbody id="list-history">
+                    <tr><td colspan="4" style="text-align:center; color:#999;">Belum ada transaksi lunas hari ini.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-pembayaran">
+        <div class="modal-content">
+            <h2>Tagihan Pembayaran</h2>
+            <div id="modal-info-meja" class="modal-meja-info">Meja: -</div>
+            <hr>
+            <div class="info-tagihan">
+                <p>Total yang harus dibayar:</p>
+                <h1 id="modal-total-tagihan">Rp 0</h1>
+            </div>
+
+            <div class="tab-pembayaran">
+                <button class="btn-tab active" id="tab-tunai" onclick="gantiMetode('tunai')">💵 Tunai / Cash</button>
+                <button class="btn-tab" id="tab-qr" onclick="gantiMetode('qr')">📸 QR Code / QRIS</button>
+            </div>
+
+            <div id="panel-tunai">
+                <div class="bayar-box">
+                    <label for="input-bayar">Masukkan Nominal Uang Tunai (Rp):</label>
+                    <input type="number" id="input-bayar" placeholder="Contoh: 50000">
+                </div>
+                <div class="kembalian-box">
+                    <span>Kembalian:</span>
+                    <span id="kembalian-teks">Rp 0</span>
+                </div>
+            </div>
+
+            <div id="panel-qr" class="qr-container">
+                <img src="qr-code.png" alt="QR Code Pembayaran" class="qr-image" onerror="this.src='https://via.placeholder.com/200?text=Foto+QR+Belum+Ada'">
+                <div class="qr-info-scan">Silakan Scan QR Di Atas Pas Sesuai Tagihan</div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-batal" id="btn-batal-bayar">Kembali</button>
+                <button class="btn-cetak" id="btn-proses-transaksi">Bayar & Kosongkan Meja</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
