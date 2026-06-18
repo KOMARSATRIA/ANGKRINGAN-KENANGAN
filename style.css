@@ -263,7 +263,12 @@ header p {
     font-size: 0.9rem;
     transition: all 0.2s;
 }
-
+.aksi-qty span {
+    color: #000000 !important;  
+    font-weight: 900 !important;  
+    display: inline-block;
+    text-align: center;
+}
 .btn-qty:hover {
     background: #ced6e0;
 }
